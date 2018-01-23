@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <title>{{title}}</title>
+  <style>
+  .error { color: red; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1> {{ title }} </h1>
+  <hr />
+  {% if blogs|length == 0 %}
+    <p>No blogs yet</p>
+
+  {% else %}
+    {% for blog in blogs %}
+      <h3><a href="./blog?id={{blog.id}}">{{blog.title}}</a></h3>
+      <p>{{blog.body}}</p>
+
+    {% for user in users %}
+        {% if user.id == blog.owner_id%}
+          <h5>written by <a href="./blog?user={{user.id}}">{{user.username}}</a></h5>
+        {% endif %}
+      {% endfor %}
+      <hr>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
